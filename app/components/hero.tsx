@@ -59,7 +59,7 @@ export function Hero() {
 
             {/* Tagline */}
             <p className="text-text-secondary text-sm md:text-base mb-6 leading-relaxed max-w-md">
-              ML engineer building healthcare AI systems, distributed training pipelines, and the infrastructure that makes them reliable at scale.
+              ML engineer building AI systems, agents, and the production infrastructure behind them.
             </p>
 
             {/* Social links as terminal commands */}
@@ -128,15 +128,15 @@ export function Hero() {
                   <span className="text-text-secondary"> = [</span>
                 </div>
                 <div className="pl-8">
-                  <span className="text-accent/70">&quot;Healthcare AI&quot;</span>
+                  <span className="text-accent/70">&quot;AI Engineering&quot;</span>
                   <span className="text-text-secondary">,</span>
                 </div>
                 <div className="pl-8">
-                  <span className="text-accent/70">&quot;Distributed Systems&quot;</span>
+                  <span className="text-accent/70">&quot;Agents &amp; LLMs&quot;</span>
                   <span className="text-text-secondary">,</span>
                 </div>
                 <div className="pl-8">
-                  <span className="text-accent/70">&quot;MLOps&quot;</span>
+                  <span className="text-accent/70">&quot;Production Infrastructure&quot;</span>
                   <span className="text-text-secondary">,</span>
                 </div>
                 <div className="pl-4">

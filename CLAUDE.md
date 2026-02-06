@@ -52,7 +52,7 @@ KaTeX CSS is imported globally in `layout.tsx` — removing this breaks all math
 ```
 app/
   layout.tsx              # Root layout, font, KaTeX CSS, ThemeProvider
-  page.tsx                # Homepage: Hero → WritingMap → Major Projects → Posts → Experiments
+  page.tsx                # Homepage: Hero → WritingMap → Major Projects → Experiments
   globals.css             # Theme variables, light overrides, code/KaTeX/prose styles
   blog/
     page.tsx              # Blog listing with tag filters (?tag= URL param)

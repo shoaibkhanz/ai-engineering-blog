@@ -2,7 +2,6 @@ import { Hero } from "./components/hero";
 import { Section } from "./components/section";
 import { ProjectList, type Project } from "./components/project-list";
 import { WritingMap } from "./components/writing-map";
-import { PostCard } from "./components/post-card";
 import { ExperimentCard } from "./components/experiment-card";
 import { getAllPosts } from "@/lib/mdx";
 import projectsData from "@/content/projects.json";
@@ -10,7 +9,6 @@ import experimentsData from "@/content/experiments.json";
 
 export default function Home() {
   const allPosts = getAllPosts();
-  const recentPosts = allPosts.slice(0, 3);
 
   return (
     <>
@@ -24,15 +22,6 @@ export default function Home() {
       {/* Projects */}
       <Section title="ls ~/major-projects/">
         <ProjectList projects={projectsData.projects as Project[]} />
-      </Section>
-
-      {/* Writing */}
-      <Section title="cat ~/writing/recent.md" viewAllHref="/blog">
-        <div className="grid gap-4">
-          {recentPosts.map((post, i) => (
-            <PostCard key={post.slug} {...post} index={i} />
-          ))}
-        </div>
       </Section>
 
       {/* Experiments */}
