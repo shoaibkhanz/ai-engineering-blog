@@ -69,22 +69,24 @@ function ProjectRow({ project }: { project: Project }) {
         [{project.status}]
       </span>
       <div className="flex-1 min-w-0">
-        <span className="text-text-heading font-medium text-sm">
-          {project.name}
-        </span>
-        <span className="text-text-secondary text-xs ml-3">
-          {project.description}
-        </span>
-      </div>
-      <div className="flex gap-1.5 shrink-0">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-[10px] text-text-secondary bg-surface border border-border px-1.5 py-0.5 rounded"
-          >
-            {tag}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span className="text-text-heading font-medium text-sm">
+            {project.name}
           </span>
-        ))}
+          <div className="flex gap-1.5 flex-wrap">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[10px] text-text-secondary bg-surface border border-border px-1.5 py-0.5 rounded"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        <p className="text-text-secondary text-xs mt-1">
+          {project.description}
+        </p>
       </div>
     </>
   );
