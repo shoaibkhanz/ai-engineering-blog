@@ -135,7 +135,7 @@ export function WritingMap({ posts }: WritingMapProps) {
                               {post.tags.slice(0, 2).map((tag) => (
                                 <span
                                   key={tag}
-                                  className="text-[10px] text-accent/40 group-hover:text-accent/60 transition-colors"
+                                  className="text-[10px] text-accent/70 group-hover:text-accent transition-colors"
                                 >
                                   #{tag}
                                 </span>
