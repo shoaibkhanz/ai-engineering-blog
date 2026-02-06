@@ -1,5 +1,7 @@
 # ai-engineering-blog
 
+**[shoaibkhanz.github.io/ai-engineering-blog](https://shoaibkhanz.github.io/ai-engineering-blog/)**
+
 Personal site and blog — AI Engineering, Agents & LLMs, Production Infrastructure. Built with a terminal/code-editor aesthetic — the hero section renders as a Pydantic model, section headers use shell commands, and the writing timeline mimics `git log`.
 
 ## Stack
