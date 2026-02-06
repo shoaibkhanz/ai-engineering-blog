@@ -67,8 +67,14 @@ export default function AboutPage() {
           conversations on GCP.
         </p>
 
+        <p className="text-text leading-relaxed mb-6">
+          Previously at Best Buy Health, where I worked on the Care Intelligence
+          Platform — building production ML systems with Ray and setting up a
+          model registry using Comet ML.
+        </p>
+
         <p className="text-text leading-relaxed mb-10">
-          Previously at NatWest Group, where I built customer lifetime value
+          Before that, at NatWest Group, where I built customer lifetime value
           models and loan pricing engines using mathematical optimisation, and
           co-authored a{" "}
           <a
@@ -79,8 +85,7 @@ export default function AboutPage() {
           >
             four-part AWS blog series
           </a>{" "}
-          on migrating ML models to SageMaker. Before that, worked on the Care
-          Intelligence Platform at Best Buy Health.
+          on migrating ML models to SageMaker.
         </p>
 
         {/* Stack section */}
