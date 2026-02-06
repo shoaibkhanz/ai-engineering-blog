@@ -54,7 +54,7 @@ export default function AboutPage() {
         </p>
 
         <p className="text-text leading-relaxed mb-6">
-          Engineered and built the data analytics platform at{" "}
+          Engineering and building the data analytics platform at{" "}
           <a
             href="https://neatlyhealth.ai"
             className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
