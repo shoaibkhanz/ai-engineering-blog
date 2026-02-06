@@ -1,31 +1,17 @@
 {
   "projects": [
     {
-      "name": "healthcare-ml-pipeline",
-      "description": "End-to-end ML pipeline for clinical prediction models with HIPAA-compliant data handling",
-      "tags": ["python", "ray", "kubernetes"],
+      "name": "data-analytics — NeatlyHealth.ai",
+      "description": "Building the data analytics platform for an AI health companion that captures and organises patient-provider conversations, built on GCP",
+      "tags": ["gcp", "python", "analytics"],
       "status": "active",
-      "url": null
+      "url": "https://neatlyhealth.ai"
     },
     {
-      "name": "distributed-training-infra",
-      "description": "Ray-based distributed training framework for large-scale model training on K8s",
-      "tags": ["ray", "k8s", "pytorch"],
+      "name": "entity-resolution — securities",
+      "description": "Mapping the alternatives investment world via entity resolution using deep learning re-rankers, retrievers, vector search, and agentic tooling",
+      "tags": ["deep-learning", "vector-search", "agents"],
       "status": "active",
-      "url": null
-    },
-    {
-      "name": "clinical-nlp",
-      "description": "NLP models for extracting structured data from clinical notes and discharge summaries",
-      "tags": ["transformers", "spacy", "python"],
-      "status": "wip",
-      "url": null
-    },
-    {
-      "name": "model-registry",
-      "description": "Internal model registry and serving platform with A/B testing support",
-      "tags": ["mlflow", "fastapi", "docker"],
-      "status": "shipped",
       "url": null
     },
     {
@@ -34,6 +20,27 @@
       "tags": ["next.js", "typescript", "mdx"],
       "status": "active",
       "url": "https://github.com/shoaibkhan/convergeml"
+    },
+    {
+      "name": "clv-sagemaker-migration",
+      "description": "Migrated customer lifetime value models to AWS SageMaker, part of a four-part AWS blog series on building a scalable MLOps platform (2022)",
+      "tags": ["aws", "sagemaker", "mlops"],
+      "status": "shipped",
+      "url": "https://aws.amazon.com/blogs/machine-learning/part-4-how-natwest-group-migrated-ml-models-to-amazon-sagemaker-architectures/"
+    },
+    {
+      "name": "customer-lifetime-value",
+      "description": "Predicting customer lifetime value to inform retention and growth strategy",
+      "tags": ["python", "ml", "optimisation"],
+      "status": "shipped",
+      "url": null
+    },
+    {
+      "name": "loan-pricing-optimisation",
+      "description": "Pricing engine for loan applications using mathematical optimisation",
+      "tags": ["python", "optimisation", "ml"],
+      "status": "shipped",
+      "url": null
     }
   ]
 }

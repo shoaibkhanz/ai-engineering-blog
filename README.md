@@ -1,6 +1,6 @@
 # convergeml.com
 
-Personal portfolio and technical blog for Shoaib Khan. Built with a terminal/code-editor aesthetic — the hero section renders as a Pydantic model, section headers use shell commands, and the writing timeline mimics `git log`.
+Personal site and blog for Shoaib Khan — Staff Machine Learning Engineer with nearly a decade of experience across fintech, healthcare, and investment management. Built with a terminal/code-editor aesthetic — the hero section renders as a Pydantic model, section headers use shell commands, and the writing timeline mimics `git log`.
 
 ## Stack
 
@@ -8,7 +8,7 @@ Personal portfolio and technical blog for Shoaib Khan. Built with a terminal/cod
 - **Styling**: Tailwind CSS v4 + CSS custom properties
 - **Animation**: Framer Motion
 - **Content**: MDX with KaTeX math + syntax highlighting (shiki)
-- **Font**: JetBrains Mono
+- **Font**: Space Mono
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Route | Description |
 |-------|-------------|
-| `/` | Homepage — hero, writing timeline, projects, recent posts, experiments |
+| `/` | Homepage — hero, writing timeline, major projects, recent posts, experiments |
 | `/blog` | Blog listing with tag filters |
 | `/blog/[slug]` | Individual post with TOC, reading progress, navigation |
 | `/experiments` | Experiments showcase |
@@ -76,7 +76,7 @@ Theme preference is saved in localStorage.
 ```
 content/
   posts/          # MDX blog posts
-  projects.json   # Project data
+  projects.json   # Major project data (sorted active → shipped in UI)
   experiments.json
 app/
   components/     # All React components (17 files)

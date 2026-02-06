@@ -3,14 +3,14 @@ import { TerminalWindow } from "../components/terminal-window";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Shoaib Khan — ML engineer building healthcare AI systems.",
+  description: "About Shoaib Khan — Staff ML Engineer with nearly a decade of experience across fintech, healthcare, and investment management.",
 };
 
 const stack = [
   { category: "Languages", items: ["Python", "TypeScript", "SQL", "Bash"] },
-  { category: "ML/AI", items: ["PyTorch", "scikit-learn", "Transformers", "Ray"] },
-  { category: "Infrastructure", items: ["Kubernetes", "Docker", "Terraform", "AWS"] },
-  { category: "Data", items: ["PostgreSQL", "Redis", "Spark", "dbt"] },
+  { category: "ML/AI", items: ["PyTorch", "Transformers", "Vector Search", "RAG", "scikit-learn"] },
+  { category: "Cloud", items: ["GCP", "AWS", "SageMaker", "Kubernetes", "Docker"] },
+  { category: "Data", items: ["BigQuery", "PostgreSQL", "Spark", "dbt"] },
   { category: "Tools", items: ["Git", "Linux", "Neovim", "Tmux"] },
 ];
 
@@ -30,17 +30,50 @@ export default function AboutPage() {
         </h1>
 
         <p className="text-text leading-relaxed mb-6">
-          ML engineer focused on building systems that work in production — not
-          just in notebooks. Currently building healthcare AI infrastructure:
-          clinical prediction models, distributed training pipelines, and the
-          tooling that makes them reliable at scale.
+          Staff Machine Learning Engineer with nearly a decade of experience
+          building ML systems across fintech, healthcare, and investment
+          management. Currently at{" "}
+          <a
+            href="https://www.addepar.com"
+            className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Addepar
+          </a>
+          , working on entity resolution for the alternatives investment world
+          — deep learning re-rankers, retrievers, vector search, and agentic
+          tooling to map the securities landscape.
+        </p>
+
+        <p className="text-text leading-relaxed mb-6">
+          Also building the data analytics platform at{" "}
+          <a
+            href="https://neatlyhealth.ai"
+            className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            NeatlyHealth.ai
+          </a>
+          , an AI health companion that captures and organises patient-provider
+          conversations on GCP.
         </p>
 
         <p className="text-text leading-relaxed mb-10">
-          Previously worked on NLP systems for clinical text, recommendation
-          engines, and real-time fraud detection. The common thread is taking ML
-          from &quot;it works on my machine&quot; to &quot;it works at 3 AM when
-          nobody&apos;s watching.&quot;
+          Previously at NatWest Group, where I built customer lifetime value
+          models and loan pricing engines using mathematical optimisation, and
+          co-authored a{" "}
+          <a
+            href="https://aws.amazon.com/blogs/machine-learning/part-4-how-natwest-group-migrated-ml-models-to-amazon-sagemaker-architectures/"
+            className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            four-part AWS blog series
+          </a>{" "}
+          on migrating ML models to SageMaker. Before that, worked on the Care
+          Intelligence Platform at Best Buy Health.
         </p>
 
         {/* Stack section */}
@@ -77,16 +110,18 @@ export default function AboutPage() {
         </h2>
 
         <p className="text-text leading-relaxed mb-4">
-          I care about building things that are reliable, observable, and
-          maintainable. ML systems are software systems first — they need tests,
-          monitoring, and on-call runbooks just like anything else.
+          The common thread across everything I&apos;ve built is taking ML from
+          prototype to production — systems that are reliable, observable, and
+          maintainable. Whether it&apos;s matching securities across messy
+          datasets or pricing loan portfolios, the hard part is rarely the model
+          itself.
         </p>
 
         <p className="text-text leading-relaxed mb-10">
-          In healthcare specifically, &quot;move fast and break things&quot;
-          doesn&apos;t apply. The stakes are different. Models need to be
-          explainable, well-calibrated, and integrated into clinical workflows
-          without adding cognitive burden.
+          In regulated industries — finance, healthcare, banking — &quot;move
+          fast and break things&quot; doesn&apos;t apply. Models need to be
+          explainable, auditable, and integrated into existing workflows without
+          adding friction.
         </p>
 
         {/* Contact section */}

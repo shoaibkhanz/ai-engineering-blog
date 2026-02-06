@@ -23,15 +23,18 @@ const statusColors: Record<string, string> = {
 
 export function ProjectList({ projects }: ProjectListProps) {
   return (
-    <TerminalWindow title="~/projects — zsh">
+    <TerminalWindow title="~/major-projects — zsh">
       <div className="space-y-1">
         <p className="text-text-secondary mb-3">
-          <span className="text-accent">$</span> ls -la projects/
+          <span className="text-accent">$</span> ls -la major-projects/
         </p>
         <div className="text-text-secondary text-xs mb-2">
           total {projects.length}
         </div>
-        {projects.map((project, i) => (
+        {[...projects].sort((a, b) => {
+          const order: Record<string, number> = { active: 0, wip: 1, shipped: 2 };
+          return (order[a.status] ?? 1) - (order[b.status] ?? 1);
+        }).map((project, i) => (
           <motion.div
             key={project.name}
             initial={{ opacity: 0, x: -10 }}

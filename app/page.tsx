@@ -22,7 +22,7 @@ export default function Home() {
       </Section>
 
       {/* Projects */}
-      <Section title="ls ~/projects/">
+      <Section title="ls ~/major-projects/">
         <ProjectList projects={projectsData.projects as Project[]} />
       </Section>
 

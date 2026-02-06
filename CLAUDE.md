@@ -14,7 +14,7 @@ Build must pass cleanly before considering work complete.
 
 ## Architecture
 
-Next.js 16 App Router, Tailwind CSS v4, Framer Motion, JetBrains Mono. Terminal/code-editor aesthetic with dark/light theme toggle.
+Next.js 16 App Router, Tailwind CSS v4, Framer Motion, Space Mono. Terminal/code-editor aesthetic with dark/light theme toggle.
 
 ### Content Pipeline
 
@@ -52,7 +52,7 @@ KaTeX CSS is imported globally in `layout.tsx` — removing this breaks all math
 ```
 app/
   layout.tsx              # Root layout, font, KaTeX CSS, ThemeProvider
-  page.tsx                # Homepage: Hero → WritingMap → Projects → Posts → Experiments
+  page.tsx                # Homepage: Hero → WritingMap → Major Projects → Posts → Experiments
   globals.css             # Theme variables, light overrides, code/KaTeX/prose styles
   blog/
     page.tsx              # Blog listing with tag filters (?tag= URL param)
@@ -75,7 +75,7 @@ app/
     section.tsx           # Scroll-reveal section wrapper
     terminal-window.tsx   # Reusable terminal chrome
     post-card.tsx         # Blog post card
-    project-list.tsx      # Project list with status badges
+    project-list.tsx      # Major project list with status badges, sorted active → wip → shipped
     experiment-card.tsx   # Experiment card
     callout.tsx           # MDX callout box
 lib/
@@ -127,7 +127,7 @@ In `app/blog/[slug]/page.tsx`, update the `theme` object passed to `rehype-prett
 Drop a `.mdx` file in `content/posts/` with the frontmatter format above. It auto-appears in blog listing, writing timeline, tag filters, and generates a static route on build. Use `<Callout type="info|warning">` for callout boxes.
 
 ### Adding a project or experiment
-Edit `content/projects.json` or `content/experiments.json`. Projects need `status: "active" | "shipped" | "wip"`.
+Edit `content/projects.json` or `content/experiments.json`. Projects need `status: "active" | "shipped" | "wip"`. Projects are sorted by status in the UI (active first, shipped last) so JSON order within the same status group determines display order.
 
 ### Adjusting visual effects
 - **Particle grid density**: `spacing` variable in `particle-grid.tsx` (lower = denser)
@@ -161,6 +161,7 @@ The `no-transitions` class on `<html>` disables all CSS transitions during initi
 - `getAllPosts()`: newest first (date descending) — this is the canonical order
 - `WritingMap`: also newest first — years descending, posts within year descending
 - Blog listing: inherits from `getAllPosts()` order
+- `ProjectList`: sorted by status — active → wip → shipped
 
 ### Canvas components and theme changes
 `particle-grid.tsx` and `cursor-trail.tsx` use MutationObserver watching `data-theme` attribute changes. The accent color is read via `getAccentRgb()` from `lib/utils.ts`. Do not duplicate this function.
