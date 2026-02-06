@@ -1,6 +1,6 @@
-# convergeml.com
+# ai-engineering-blog
 
-Personal site and blog for Shoaib Khan — Staff Machine Learning Engineer with nearly a decade of experience across fintech, healthcare, and investment management. Built with a terminal/code-editor aesthetic — the hero section renders as a Pydantic model, section headers use shell commands, and the writing timeline mimics `git log`.
+Personal site and blog — AI Engineering, Agents & LLMs, Production Infrastructure. Built with a terminal/code-editor aesthetic — the hero section renders as a Pydantic model, section headers use shell commands, and the writing timeline mimics `git log`.
 
 ## Stack
 

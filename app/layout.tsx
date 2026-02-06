@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   description:
     "ML engineer building healthcare AI systems and distributed infrastructure.",
-  metadataBase: new URL("https://convergeml.com"),
+  metadataBase: new URL("https://shoaibkhanz.github.io"),
 };
 
 // Inline script to set theme before first paint (prevents flash)

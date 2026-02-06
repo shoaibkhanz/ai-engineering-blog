@@ -6,7 +6,7 @@ import { ParticleGrid } from "./particle-grid";
 const socials = [
   { key: "github", type: "HttpUrl", href: "https://github.com/shoaibkhanz", icon: "G" },
   { key: "linkedin", type: "HttpUrl", href: "https://linkedin.com/in/shoaibkhanz", icon: "L" },
-  { key: "email", type: "EmailStr", href: "mailto:hello@convergeml.com", icon: "@" },
+  { key: "email", type: "EmailStr", href: "mailto:shoaibkhanz@hotmail.com", icon: "@" },
 ];
 
 export function Hero() {

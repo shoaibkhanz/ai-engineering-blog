@@ -23,11 +23,18 @@ export default function AboutPage() {
           <span className="text-accent">$</span> cat README.md
         </p>
 
-        {/* About header */}
-        <h1 className="text-2xl font-bold text-text-heading mb-6 border-b border-border pb-3">
-          <span className="text-text-secondary/50 text-lg mr-2">#</span>
-          About
-        </h1>
+        {/* About header with photo */}
+        <div className="flex items-center gap-5 mb-6 border-b border-border pb-5">
+          <img
+            src="/ai-engineering-blog/images/shoaib.jpg"
+            alt="Shoaib Khan"
+            className="w-20 h-20 rounded-full border-2 border-accent/30 shrink-0"
+          />
+          <h1 className="text-2xl font-bold text-text-heading">
+            <span className="text-text-secondary/50 text-lg mr-2">#</span>
+            About
+          </h1>
+        </div>
 
         <p className="text-text leading-relaxed mb-6">
           Staff Machine Learning Engineer with nearly a decade of experience
@@ -150,7 +157,7 @@ export default function AboutPage() {
           </a>
           {" · "}
           <a
-            href="mailto:hello@convergeml.com"
+            href="mailto:shoaibkhanz@hotmail.com"
             className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
           >
             email

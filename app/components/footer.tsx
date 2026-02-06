@@ -10,7 +10,7 @@ const navLinks = [
 const socialLinks = [
   { label: "github", href: "https://github.com/shoaibkhanz" },
   { label: "linkedin", href: "https://linkedin.com/in/shoaibkhanz" },
-  { label: "email", href: "mailto:hello@convergeml.com" },
+  { label: "email", href: "mailto:shoaibkhanz@hotmail.com" },
 ];
 
 export function Footer() {

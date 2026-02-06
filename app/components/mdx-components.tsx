@@ -83,6 +83,18 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     td: (props) => (
       <td className="border border-border px-4 py-2.5 text-text" {...props} />
     ),
+    img: (props) => (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        {...props}
+        src={
+          props.src?.startsWith("/")
+            ? `/ai-engineering-blog${props.src}`
+            : props.src
+        }
+        alt={props.alt || ""}
+      />
+    ),
     pre: (props) => <CodeBlock {...props} />,
     hr: () => <hr className="border-border my-12" />,
     Callout,
