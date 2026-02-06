@@ -39,7 +39,7 @@ export default function AboutPage() {
         <p className="text-text leading-relaxed mb-6">
           Staff Machine Learning Engineer. Nearly a decade shipping ML systems
           across fintech, healthcare, and investment management. Currently
-          leading entity resolution at{" "}
+          leading the ML efforts within data feeds at{" "}
           <a
             href="https://www.addepar.com"
             className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
@@ -48,8 +48,8 @@ export default function AboutPage() {
           >
             Addepar
           </a>
-          , designing deep learning re-rankers, retrievers, vector search
-          pipelines, and agentic tooling to map the alternatives investment
+          , building entity resolution, deep learning re-rankers, vector search
+          pipelines, and agentic tooling for the alternatives investment
           securities landscape.
         </p>
 
