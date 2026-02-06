@@ -1,0 +1,137 @@
+---
+title: "Scaling ML with Ray: From Laptop to Cluster"
+date: "2026-01-05"
+description: "How to use Ray to scale your machine learning workloads from a single machine to a distributed cluster without rewriting your code."
+tags: ["ml", "infrastructure", "tutorial"]
+---
+
+When your dataset grows beyond what fits in memory, or your training takes days instead of hours, you need distributed computing. Ray makes this transition remarkably smooth.
+
+## Why Ray?
+
+Ray strikes a unique balance:
+
+- **Pythonic**: Write normal Python code
+- **Flexible**: Works for training, inference, data processing
+- **Scalable**: From laptop to thousand-node clusters
+- **Ecosystem**: Integrates with PyTorch, TensorFlow, scikit-learn
+
+## The Basics: Tasks and Actors
+
+Ray's core abstractions are simple. A **task** is a remote function:
+
+```python
+import ray
+
+ray.init()
+
+@ray.remote
+def train_model(data_shard):
+    """Train on a shard of data."""
+    model = create_model()
+    model.fit(data_shard)
+    return model.get_weights()
+
+# Run in parallel
+futures = [train_model.remote(shard) for shard in data_shards]
+weights = ray.get(futures)
+```
+
+An **actor** is a stateful worker:
+
+```python
+@ray.remote
+class ModelServer:
+    def __init__(self, model_path):
+        self.model = load_model(model_path)
+
+    def predict(self, inputs):
+        return self.model.predict(inputs)
+
+# Create actors
+servers = [ModelServer.remote(path) for path in model_paths]
+
+# Distribute predictions
+predictions = ray.get([
+    server.predict.remote(batch)
+    for server, batch in zip(servers, batches)
+])
+```
+
+## Ray Train: Distributed Training
+
+For deep learning, Ray Train handles the complexity:
+
+```python
+from ray.train.torch import TorchTrainer
+from ray.train import ScalingConfig
+
+def train_func(config):
+    model = create_model()
+    optimizer = torch.optim.Adam(model.parameters(), lr=config["lr"])
+
+    # Ray handles data sharding
+    train_loader = get_dataloader(config["batch_size"])
+
+    for epoch in range(config["epochs"]):
+        for batch in train_loader:
+            loss = train_step(model, batch, optimizer)
+
+        # Report metrics to Ray
+        train.report({"loss": loss})
+
+trainer = TorchTrainer(
+    train_func,
+    train_loop_config={"lr": 1e-3, "batch_size": 32, "epochs": 10},
+    scaling_config=ScalingConfig(num_workers=4, use_gpu=True),
+)
+
+result = trainer.fit()
+```
+
+## Ray Data: Distributed Data Processing
+
+For large datasets, Ray Data provides streaming processing:
+
+```python
+import ray.data
+
+# Load data in parallel
+ds = ray.data.read_parquet("s3://bucket/data/")
+
+# Apply transformations
+ds = ds.map_batches(preprocess_batch, batch_size=1000)
+
+# Shuffle and split
+train_ds, val_ds = ds.train_test_split(test_size=0.2)
+
+# Stream to training
+for batch in train_ds.iter_batches(batch_size=64):
+    train_step(model, batch)
+```
+
+## Lessons Learned
+
+After running Ray in production:
+
+1. **Start small**: Test locally before scaling
+2. **Monitor everything**: Ray's dashboard is your friend
+3. **Handle failures**: Distributed systems fail in creative ways
+4. **Profile first**: Know your bottleneck before optimizing
+
+## When Not to Use Ray
+
+Ray isn't always the answer:
+
+- Small datasets that fit in memory
+- Simple workloads where overhead dominates
+- When you need deterministic ordering
+- Legacy systems with heavy dependencies
+
+The best distributed system is sometimes no distributed system.
+
+## Conclusion
+
+Ray democratizes distributed computing. What once required specialized engineering teams is now accessible to any ML practitioner willing to learn a few new patterns.
+
+The learning curve is worth it when you see training times drop from days to hours.

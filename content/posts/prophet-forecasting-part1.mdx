@@ -1,0 +1,113 @@
+---
+title: "Time-Series Forecasting using Prophet — Part 1"
+date: "2020-05-20"
+description: "Prophet is a time-series forecasting library by Facebook that requires very little classical time-series experience. Get started building models quickly."
+tags: ["time-series", "prophet", "forecasting"]
+---
+
+Prophet is a time-series forecasting library by Facebook and it's available in Python and in R. It is simple to use and requires very little classical time-series experience, for e.g. ARIMA, SARIMA etc. Thus, you can start building models quickly, get good results and become effective in no time. Considering this, prophet has become a popular library for time-series applications.
+
+A model in prophet is defined by the following equation. This form is called a general additive model, since we're adding results from each of the components to get our prediction.
+
+$$
+\hat{Y}_t = g_t + s_t + h_t + x_t + \epsilon
+$$
+
+- $\hat{Y}_t$ are the predictions
+- $g_t$ stands for growth model i.e. trend (logistic/linear)
+- $s_t$ models seasonality using Fourier series
+- $h_t$ models holiday effects
+- $x_t$ any extra regressors
+- $\epsilon$ normally distributed errors
+
+## What is this post about?
+
+In this first post on Prophet, my objective is simply to get you started with forecasting. I aim to cover the very basics to get you off the ground. In this series of posts, the aim is to cover all the features of Prophet in parts. We will explore under-the-hood mathematics that define Prophet and tinker with how it's applied in code.
+
+All the code required to run the model is available on [GitHub](https://github.com/shoaibkhanz/fbprophet_case_studies/tree/master/Part1).
+
+## Dataset
+
+Time-series data is where the values are recorded sequentially with respect to time, for e.g. temperature data or health tracker data etc. For this post, we will model maximum temperature data for Sydney, Australia between the years 2013-2017 and we want to forecast it another year. This data has a strong seasonal pattern with a weak trend.
+
+## Setting up to explore and forecast
+
+We want to set up our environment with libraries that we would need for this forecasting exercise.
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+from fbprophet import Prophet
+```
+
+We then read our data and prepare it. Prophet requires the date variable to be set as a datetime object and named `ds`, and the target variable named `y`.
+
+```python
+df = pd.read_csv('../datasets/ausraindata.csv')
+df['ds'] = pd.to_datetime(df['Date'])
+df['y'] = df['MaxTemp']
+df = df.loc[(df['Location'] == 'Sydney') &
+            (df['ds'].dt.year >= 2013), :]
+df = df.loc[:, ['ds', 'y']]
+```
+
+As we plot the time-series, we observe peaks and valleys — temperature drops during winters and increases during summers. It's seasonal and we should expect the model to detect this pattern.
+
+![Plotting daily time-series of Max Temperature in Sydney, Australia](/images/fb_prophet_11.svg)
+
+## Fitting a Prophet model
+
+We have the data ready containing only 2 variables — `ds` and `y` — and this is sufficient to build our very basic prophet model.
+
+```python
+m1 = Prophet(daily_seasonality=False,
+             weekly_seasonality=True,
+             yearly_seasonality=True)
+m1.fit(df)
+future1 = m1.make_future_dataframe(periods=365)
+forecast1 = m1.predict(future1)
+```
+
+The `forecast1` dataframe contains train and test data along with the forecast values called `yhat`.
+
+$$
+\hat{Y} = \text{trend} + \text{weekly} + \text{yearly}
+$$
+
+| ds | trend | weekly | yearly | yhat |
+|---|---|---|---|---|
+| 2018-06-21 | 24.032 | 0.157 | -5.220 | 18.969 |
+| 2018-06-22 | 24.033 | 0.008 | -5.289 | 18.751 |
+| 2018-06-23 | 24.034 | -0.059 | -5.356 | 18.618 |
+| 2018-06-24 | 24.034 | -0.119 | -5.420 | 18.495 |
+| 2018-06-25 | 24.035 | -0.025 | -5.480 | 18.530 |
+
+## Predictions, Trend and Seasonality
+
+Prophet provides some useful functions to plot data. We use matplotlib to plot the predictions. The function plots 95% confidence intervals as well.
+
+```python
+m1.plot(forecast1)
+```
+
+![Plotting predictions](/images/fb_prophet_12.svg)
+
+If we now want to plot trend and seasonality, we call the `plot_components` method. We notice that Tuesdays and Thursdays are hotter than others, though the values are relatively small — this may suggest it's not significant. Due to Australia's location, the weather is very different compared to other parts of the world. We observe in the yearly seasonality plot that July is the coldest while December is the hottest.
+
+```python
+m1.plot_components(forecast1)
+```
+
+![Plotting Trend and Seasonality](/images/fb_prophet_13.svg)
+
+## Key Takeaways
+
+After reading this post you should be confident to run your basic Prophet model and make forecasts. There's a lot I haven't covered here:
+
+1. What are changepoints?
+2. What do we mean by logistic and linear trend?
+3. How is seasonality calculated (Fourier series)?
+4. Time-series cross-validation and performance metrics
+5. How do you boost model performance?
+
+Future posts in this series will help answer all these questions. All the code is stored [here](https://github.com/shoaibkhanz/fbprophet_case_studies/tree/master/Part1), there is also a `utils.py` file in the project that gives the appearance of the charts.

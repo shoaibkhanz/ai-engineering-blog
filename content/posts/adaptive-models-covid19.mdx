@@ -1,0 +1,52 @@
+---
+title: "Adaptive Models During COVID-19"
+date: "2020-04-17"
+description: "When models fail to adjust to sudden fluctuations, you need an adaptive fix. A simple 6-step process to make linear regression models respond to shocks."
+tags: ["adaptive-models", "covid-19", "time-series"]
+---
+
+COVID-19 has derailed many aspects of life, and it's hard to adapt. However, to survive we must. The story is hardly different when we look at our mathematical models — many good models have come crashing down as they failed to adjust to sudden fluctuations in the data.
+
+You might find yourself in 2 situations. Either you are now building a short-term model with extremely limited data, or you are now on a lookout for a solution.
+
+## What's the Fix?
+
+My use-case is centred around determining price elasticity of customers and I have used a simple log-log linear regression model to model this. The log-log structure helps translate coefficient values as percentages. If you want to understand this better, here is a [UCLA link](https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faqhow-do-i-interpret-a-regression-model-when-some-variables-are-log-transformed/) that explains it with examples.
+
+This adaptive fix is a **6 step process** based on linear regression but I believe can be extended to other models as well.
+
+**Step 1:** Fit a Linear Regression model.
+
+**Step 2:** Calculate the Errors.
+
+**Step 3:** Calculate a rolling mean of 2 or 3 or 4 weeks. The choice of week depends on the use case. However, if the shock is recent then smaller the number the better (starting with at least 2 points).
+
+**Step 4:** Lag the calculated mean by 1 or 2 weeks. This depends on the use case as well. The lag here can be interpreted as how soon the model is informed about the errors.
+
+**Step 5:** Convert NAs to 0.
+
+**Step 6:** Add the error mean to the predictions from Step 1.
+
+## Code
+
+I have my models written in R and below is the code which implements all 6 steps. This can easily be written in any language.
+
+```r
+train_error = train_actual - train_preds_
+test_error = test_actual - test_preds_
+
+train_preds_ = train_preds_ + lag(
+  as.vector(rollmean(train_error, k = 2, fill = FALSE, align = 'right')),
+  default = 0
+)
+test_preds_ = test_preds_ + lag(
+  as.vector(rollmean(test_error, k = 2, fill = FALSE, align = 'right')),
+  default = 0
+)
+```
+
+## What have we implemented?
+
+First, we must realise the caveat — this solution works when we are predicting continuous values and it's not for classification models.
+
+In this solution we have combined the idea of moving average (time series) with linear regression, very similar to ARIMAX but not exactly. The way we have implemented this implies that we are modifying the intercept (Step 6). The reason this improves the model is because we are always learning from the most recent errors.

@@ -1,0 +1,48 @@
+---
+title: "Why ECDF is Better Than a Histogram"
+date: "2019-01-20"
+description: "If you've never heard of binning bias then you could be using histograms and drawing incorrect conclusions. Here's why ECDF is the better choice."
+tags: ["statistics", "visualization", "data"]
+---
+
+If you have never heard of binning bias then you could be using histograms and drawing incorrect conclusions.
+
+Histograms are one of the most commonly used tools for visualizing distributions. But they have a fundamental flaw: **binning bias**. The shape of a histogram changes dramatically depending on the number of bins and bin width you choose. Two people looking at the same data can draw completely different conclusions just by using different bin sizes.
+
+## The Problem with Binning
+
+When you create a histogram, you're making an arbitrary choice about how to group your data. A small change in bin width can:
+
+- Hide important features of the distribution (bimodality, skewness)
+- Create features that don't actually exist
+- Make it impossible to compare two distributions fairly
+
+## The ECDF Alternative
+
+The **Empirical Cumulative Distribution Function** (ECDF) plots every data point without any binning. For each value $x$, it shows the proportion of data points that are less than or equal to $x$.
+
+This means:
+- **No arbitrary binning decisions** — every data point is represented
+- **Easy comparison** — overlay multiple ECDFs to compare distributions
+- **Precise reading** — you can read exact percentiles directly from the plot
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_ecdf(data, label=None):
+    x = np.sort(data)
+    y = np.arange(1, len(x) + 1) / len(x)
+    plt.plot(x, y, marker='.', linestyle='none', label=label)
+    plt.xlabel('Value')
+    plt.ylabel('ECDF')
+```
+
+## When to Use What
+
+- **Histograms**: Quick visual sense of shape, audience familiarity
+- **ECDF**: Precise analysis, comparison, avoiding binning bias
+
+Next time you reach for `plt.hist()`, consider whether `plt.plot(sorted(x), ecdf)` would tell you more.
+
+*Originally published on [Medium](https://medium.com/convergeml/why-ecdf-is-better-than-a-histogram-85deda4129ed).*

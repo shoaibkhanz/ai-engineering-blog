@@ -1,0 +1,168 @@
+---
+title: "Time-Series Forecasting using Prophet — Part 2"
+date: "2020-05-30"
+description: "Deep dive into Prophet's trend component — logistic and linear growth models, changepoints, and regularization."
+tags: ["time-series", "prophet", "forecasting"]
+---
+
+In the [last post](/blog/prophet-forecasting-part1), we learned that we can build a simple Prophet model by combining trend and seasonality to forecast the future. We saw that in the model equation not only can we add those factors but we can also include holiday effects and extra regressors.
+
+$$
+\hat{Y}_t = g_t + s_t + h_t + x_t + \epsilon
+$$
+
+In this post, we will dive deep to understand trend, uncover the 2 options available and how they model trend differently. We will also learn about changepoints that allow the trend to change at specific points.
+
+## What is trend?
+
+When we say we want to extract trend from the data, we essentially are looking to understand the overall trajectory of our time series. We want to know if the series has an increasing or decreasing trend.
+
+![Increasing Trend](/images/fb_prophet_21.svg)
+
+![Decreasing Trend](/images/fb_prophet_22.svg)
+
+Trends are not always increasing or decreasing — they may also consist of changes at points in time. One of the ways trend can be calculated is by computing a rolling mean. Below we have a weekly rolling mean and it's able to follow the path of our series.
+
+![Trend estimated by weekly rolling mean](/images/fb_prophet_23.svg)
+
+There are 2 ways that trend is calculated in Prophet via **Linear** and **Logistic** growth models. However, logistic growth has more bells and whistles.
+
+## Logistic Growth
+
+Logistic growth captures non-linear relationships — trend can be curvy and it is also possible to decide saturation values at defined points.
+
+What do we mean by **saturation**? Imagine our company is providing internet services and we've been given a task to calculate trend. The sales is increasing but we can never outgrow the population of the area, thus our trend can never increase beyond this threshold. This bound is called the **carrying capacity** $C$.
+
+Population can grow and shrink with time as well, and thus with logistic growth we can define bounds. We could define it as a single value that remains constant for the entire time series or give different values for different points in time.
+
+The basic form of logistic trend:
+
+$$
+g_t = \frac{C}{1 + \exp(-k(t - m))}
+$$
+
+- $C$ is the carrying capacity (bounds)
+- $k$ is the growth rate
+- $m$ is an offset parameter
+
+```python
+def base_trend(c, k, t, m):
+    trend = c / (1 + np.exp(-k * (t - m)))
+    return trend
+
+c = 1000
+k = 1
+t = np.linspace(1, 50, 50)
+m = 20
+```
+
+It saturates at $C = 1000$, with an offset at $m = 20$ ($m$ allows the graph to move sideways), $k$ is the initial growth and determines the curvature of the line.
+
+![Logistic Growth base form](/images/fb_prophet_24.svg)
+
+If we change the carrying capacity $C$ from 1000 to 100, $k$ to 5 (resulting in a sudden increase), and $m$ to 10 (shifting 10 units to the left):
+
+![Logistic Growth with different parameters](/images/fb_prophet_25.svg)
+
+### Changepoints
+
+In the growth function we can define dates where the trend is **allowed to change** — those dates are considered as **changepoints**.
+
+I've simulated some data with an increasing trend:
+
+![Simulated Data](/images/fb_prophet_26.svg)
+
+We model this with logistic growth and set seasonality to False:
+
+```python
+m1 = Prophet(growth='logistic',
+             daily_seasonality=False,
+             weekly_seasonality=False,
+             yearly_seasonality=False)
+
+df['cap'] = 50
+df['floor'] = 1
+m1.fit(df)
+future1 = m1.make_future_dataframe(periods=365)
+future1['cap'] = 50
+future1['floor'] = 1
+
+forecast1 = m1.predict(future1)
+fig, ax = m1.plot(forecast1)
+```
+
+Here is the fit plot with predictions. The black dotted lines are the bounds we defined for trend. Note these bounds are applied to the trend, not the final predictions — but they affect predictions because trend is part of $\hat{Y}_t = g_t + s_t + h_t + x_t + \epsilon$.
+
+![Fit plot with cap = 50](/images/fb_prophet_27.svg)
+
+In this trend plot you can see how cap at 50 restricts the trend. If we change cap to 40 the trend is constrained accordingly:
+
+![Trend plot with cap = 50](/images/fb_prophet_28.svg)
+
+![Fit plot with cap = 40](/images/fb_prophet_29.svg)
+
+![Trend plot with cap = 40](/images/fb_prophet_210.svg)
+
+Prophet identifies 25 changepoints automatically but only for the first 80% of the data. You can define your own changepoints and control the regularization using `changepoint_prior_scale`. Due to regularization, many changepoint coefficients are set near 0.
+
+![Changepoints](/images/fb_prophet_211.svg)
+
+The coefficient values — some aren't visible on the scale as they are extremely small:
+
+![Coefficient values for changepoints](/images/fb_prophet_212.svg)
+
+When we consider the logistic growth function with changepoints, the base formula extends to:
+
+$$
+g(t) = \frac{C(t)}{1 + \exp(-(k + a(t)^T \delta)(t - (m + a(t)^T \gamma)))}
+$$
+
+The $a(t)$ is where we define the changepoints and $\delta$ are the coefficient values. Let's consider an example: time $t$ as a sequence 1 to 5 with 2 changepoints at $t=2$ and $t=4$.
+
+We create $a(t)$ as a vector. Since we have 2 changepoints, the first changepoint occurs at $t=2$ (set to 1 till end of series), and the second at $t=4$.
+
+$\delta$ is a vector representing the amount the slope changes at each changepoint. So $\delta = [5, 10]$ means at the first changepoint the slope increases by 5, and at the second it increases by 10. $k$ is the initial slope before any changepoints.
+
+If we set $k = 2$ and calculate $k + a(t)^T \delta$:
+
+- $t = 1$: slope = 2 (initial)
+- $t = 2$: slope = 7 (increases by 5)
+- $t = 3$: slope = 7 (unchanged)
+- $t = 4$: slope = 17 (increases by 10)
+- $t = 5$: slope = 17 (unchanged)
+
+## Linear Growth Model
+
+Linear growth follows a simpler formula:
+
+$$
+g(t) = (k + a(t)^T \delta) \cdot t + (m + a(t)^T \gamma)
+$$
+
+Unlike logistic growth, this model doesn't allow for any trend bounds and produces straight-line trends.
+
+```python
+m3 = Prophet(growth='linear',
+             daily_seasonality=False,
+             weekly_seasonality=False,
+             yearly_seasonality=False,
+             changepoint_prior_scale=1.05)
+m3.fit(df)
+future3 = m3.make_future_dataframe(periods=365)
+forecast3 = m3.predict(future3)
+```
+
+The `changepoint_prior_scale` controls flexibility — default is 0.05. More flexibility means overfitting the training data and poor generalization.
+
+![Linear growth fit](/images/fb_prophet_213.svg)
+
+![Linear growth trend](/images/fb_prophet_214.svg)
+
+## Key Takeaways
+
+We've learned not only how to run trend models in Prophet but how to think about them — examining changepoints, regularization, and practical implementation through equations and code.
+
+## Resources
+
+- [GitHub Repository](https://github.com/shoaibkhanz/fbprophet_case_studies)
+- [Facebook Prophet Documentation](https://facebook.github.io/prophet/)

@@ -1,0 +1,32 @@
+{
+  "experiments": [
+    {
+      "id": "attention-visualizer",
+      "title": "Attention Visualizer",
+      "description": "Interactive visualization of transformer attention patterns across layers and heads. See how models attend to different tokens in real-time.",
+      "tags": ["transformers", "visualization", "pytorch"],
+      "url": null
+    },
+    {
+      "id": "gradient-descent-playground",
+      "title": "Gradient Descent Playground",
+      "description": "Explore different optimization algorithms on various loss landscapes. Compare SGD, Adam, RMSProp, and more.",
+      "tags": ["optimization", "interactive", "math"],
+      "url": null
+    },
+    {
+      "id": "distributed-training-sim",
+      "title": "Distributed Training Simulator",
+      "description": "Simulate data parallel and model parallel training strategies. Visualize communication overhead and scaling efficiency.",
+      "tags": ["distributed", "simulation", "ray"],
+      "url": null
+    },
+    {
+      "id": "clinical-ner-demo",
+      "title": "Clinical NER Demo",
+      "description": "Named entity recognition on clinical text. Highlights medications, conditions, procedures, and anatomy in real-time.",
+      "tags": ["nlp", "healthcare", "demo"],
+      "url": null
+    }
+  ]
+}

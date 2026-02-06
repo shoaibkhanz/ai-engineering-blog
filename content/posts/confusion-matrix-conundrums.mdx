@@ -1,0 +1,75 @@
+---
+title: "Conundrums of the Confusion Matrix"
+date: "2019-01-12"
+description: "Understanding fundamental metrics like precision, recall, accuracy, and error rate for evaluating classification models."
+tags: ["ml", "classification", "metrics"]
+---
+
+It's extremely important to understand your model's performance. In this post, I explain fundamental metrics such as precision, recall, accuracy, error rate — these metrics help us evaluate all types of classification models, e.g. logistic regression, random forest, neural networks.
+
+## The Confusion Matrix
+
+A confusion matrix is a table that describes the performance of a classification model. For a binary classifier, it has four cells:
+
+|  | Predicted Positive | Predicted Negative |
+|---|---|---|
+| **Actually Positive** | True Positive (TP) | False Negative (FN) |
+| **Actually Negative** | False Positive (FP) | True Negative (TN) |
+
+## Key Metrics
+
+### Accuracy
+
+$$
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+$$
+
+The proportion of correct predictions out of all predictions. Sounds great, but it's misleading when classes are imbalanced. If 95% of your data is class A, a model that always predicts A gets 95% accuracy while being completely useless.
+
+### Precision
+
+$$
+\text{Precision} = \frac{TP}{TP + FP}
+$$
+
+Of all the instances we predicted as positive, how many were actually positive? High precision means few false alarms.
+
+### Recall (Sensitivity)
+
+$$
+\text{Recall} = \frac{TP}{TP + FN}
+$$
+
+Of all the actually positive instances, how many did we catch? High recall means we miss fewer positive cases.
+
+### The Precision-Recall Trade-off
+
+You can't optimize both simultaneously. Increasing precision typically decreases recall and vice versa. The right balance depends on your use case:
+
+- **Spam detection**: Prefer high precision (don't send real emails to spam)
+- **Disease screening**: Prefer high recall (don't miss sick patients)
+- **Fraud detection**: Balance both, but lean towards recall
+
+### F1 Score
+
+$$
+F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+$$
+
+The harmonic mean of precision and recall. Useful when you want a single metric that balances both.
+
+```python
+from sklearn.metrics import confusion_matrix, classification_report
+
+y_true = [1, 0, 1, 1, 0, 1, 0, 0, 1, 0]
+y_pred = [1, 0, 1, 0, 0, 1, 1, 0, 1, 0]
+
+cm = confusion_matrix(y_true, y_pred)
+print(classification_report(y_true, y_pred))
+```
+
+## Key Takeaway
+
+Never rely on accuracy alone. Always look at the full confusion matrix and choose metrics that align with the cost of errors in your specific domain.
+
+*Originally published on [Medium](https://medium.com/convergeml/conundrums-of-the-confusion-matrix-2fa82293707a).*

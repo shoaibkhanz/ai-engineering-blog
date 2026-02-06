@@ -1,0 +1,407 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-hover: #1a1a1a;
+  --color-border: #222222;
+  --color-border-bright: #333333;
+  --color-text: #e0e0e0;
+  --color-text-secondary: #888888;
+  --color-text-heading: #ffffff;
+  --color-accent: #00ff9f;
+  --color-accent-dim: #00cc7f;
+  --color-cyan: #00d4ff;
+  --color-red: #ff5f56;
+  --color-yellow: #ffbd2e;
+  --color-green: #27c93f;
+
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono",
+    Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Light theme overrides */
+[data-theme="light"] {
+  --color-bg: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-surface-hover: #ebebeb;
+  --color-border: #d4d4d8;
+  --color-border-bright: #a1a1aa;
+  --color-text: #27272a;
+  --color-text-secondary: #71717a;
+  --color-text-heading: #09090b;
+  --color-accent: #00875a;
+  --color-accent-dim: #006644;
+  --color-cyan: #0e7490;
+  --color-red: #dc2626;
+  --color-yellow: #ca8a04;
+  --color-green: #16a34a;
+}
+
+[data-theme="light"] body::before {
+  opacity: 0;
+}
+
+[data-theme="light"] body::after {
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+[data-theme="light"] .scanlines::before {
+  display: none;
+}
+
+[data-theme="light"] ::selection {
+  background: rgba(0, 135, 90, 0.15);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-bright);
+}
+
+/* Light theme: code blocks get a tinted background for contrast */
+[data-theme="light"] pre[data-theme] {
+  background: #f0f0f2 !important;
+  border-color: #d4d4d8;
+}
+
+[data-theme="light"] code:not(pre code) {
+  background: #f0f0f2;
+  border-color: #d4d4d8;
+  color: #047857;
+}
+
+/* Glow RGB values for box-shadow (can't use hex in rgba) */
+:root {
+  --glow-rgb: 0, 255, 159;
+}
+
+[data-theme="light"] {
+  --glow-rgb: 0, 135, 90;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-mono);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* Smooth theme transitions for key elements */
+*,
+*::before,
+*::after {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+header,
+footer,
+nav,
+article,
+section,
+aside {
+  transition: background-color 0.4s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Prevent transition flash on page load */
+html.no-transitions *,
+html.no-transitions *::before,
+html.no-transitions *::after {
+  transition: none !important;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 17px;
+    line-height: 1.85;
+  }
+}
+
+/* Noise texture overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle grid background */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content is above overlays */
+#__next,
+main,
+header,
+footer,
+div[data-nextjs-scroll-focus-boundary] {
+  position: relative;
+  z-index: 1;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-bright);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 255, 159, 0.2);
+  color: var(--color-text-heading);
+}
+
+/* Focus states for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(var(--glow-rgb), 0.15);
+}
+
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-hover) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Glow effects */
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 255, 159, 0.15);
+}
+
+.glow-green-hover:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 159, 0.15);
+  border-color: rgba(0, 255, 159, 0.3);
+}
+
+/* Scanline effect */
+.scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Code block styling — dual theme via shiki CSS variables */
+pre[data-theme] {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+pre[data-theme] code {
+  font-family: var(--font-mono);
+}
+
+/* Dark mode: use --shiki-dark colors */
+pre[data-theme] code span {
+  color: var(--shiki-dark) !important;
+}
+
+/* Light mode: use --shiki-light colors */
+[data-theme="light"] pre[data-theme] code span {
+  color: var(--shiki-light) !important;
+}
+
+code:not(pre code) {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+  color: var(--color-accent);
+}
+
+/* KaTeX */
+.katex-display {
+  overflow-x: auto;
+  padding: 1rem 0;
+  margin: 1.5rem 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.katex-display > .katex {
+  padding: 0 1rem;
+}
+
+.katex {
+  color: var(--color-text-heading);
+  font-size: 1.1em;
+}
+
+/* Inline math */
+.katex:not(.katex-display .katex) {
+  font-size: 1em;
+  padding: 0 0.1em;
+}
+
+/* Fix KaTeX font rendering on dark backgrounds */
+.katex .mord,
+.katex .mbin,
+.katex .mrel,
+.katex .mopen,
+.katex .mclose,
+.katex .mpunct,
+.katex .minner {
+  color: var(--color-text-heading);
+}
+
+.katex .mop {
+  color: var(--color-cyan);
+}
+
+.katex .katex-html {
+  color: var(--color-text-heading);
+}
+
+/* Prose overrides */
+.prose {
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-text-heading);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-text-heading);
+  --tw-prose-code: var(--color-accent);
+  --tw-prose-pre-bg: var(--color-surface);
+  --tw-prose-quotes: var(--color-text-secondary);
+  --tw-prose-quote-borders: var(--color-accent);
+  --tw-prose-counters: var(--color-text-secondary);
+  --tw-prose-bullets: var(--color-accent);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+
+.prose a {
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 255, 159, 0.3);
+  transition: border-color 0.2s;
+}
+
+.prose a:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+.prose img {
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.prose img:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .prose img {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .prose img:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+.prose hr {
+  border-color: var(--color-border);
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--color-accent);
+  font-style: normal;
+}

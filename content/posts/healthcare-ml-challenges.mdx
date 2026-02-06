@@ -1,0 +1,97 @@
+---
+title: "The Unique Challenges of ML in Healthcare"
+date: "2026-01-15"
+description: "Why building machine learning systems for healthcare is fundamentally different from other domains, and what it takes to do it right."
+tags: ["healthcare", "ml", "ethics"]
+---
+
+Healthcare is not just another vertical for machine learning. The stakes are higher, the data is messier, and the regulatory landscape is more complex. Yet the potential impact is immense.
+
+## Data: Scarce and Precious
+
+Unlike tech companies swimming in user data, healthcare organizations face significant constraints:
+
+- **Privacy regulations**: HIPAA in the US, GDPR in Europe
+- **Data silos**: Information scattered across systems that don't talk to each other
+- **Annotation costs**: Expert labeling requires expensive physician time
+- **Class imbalance**: Rare diseases mean rare positive examples
+
+The result? Models must be data-efficient in ways that consumer ML rarely needs to be.
+
+## The Ground Truth Problem
+
+In most ML applications, ground truth is relatively clear. A user clicked or didn't. A transaction was fraudulent or wasn't.
+
+In healthcare, ground truth is often:
+
+- **Delayed**: Cancer outcomes may take years to manifest
+- **Uncertain**: Different physicians may give different diagnoses
+- **Evolving**: Medical knowledge changes over time
+
+Consider this: what is the "correct" diagnosis when experts disagree 20% of the time?
+
+## Regulatory Requirements
+
+Deploying ML in healthcare means navigating:
+
+1. **FDA clearance**: For diagnostic devices in the US
+2. **CE marking**: For the European market
+3. **Clinical validation studies**: Proving efficacy and safety
+4. **Post-market surveillance**: Monitoring performance after deployment
+
+This isn't bureaucratic overhead — it's necessary protection for patients.
+
+## The Human Loop
+
+Healthcare ML must work *with* clinicians, not replace them:
+
+```python
+class ClinicalDecisionSupport:
+    """
+    A clinical decision support system that augments
+    rather than replaces physician judgment.
+    """
+
+    def predict_with_explanation(self, patient_data):
+        prediction = self.model.predict(patient_data)
+        confidence = self.model.predict_proba(patient_data)
+
+        # Always provide interpretable explanations
+        explanations = self.explain(patient_data, prediction)
+
+        # Flag uncertainty explicitly
+        if confidence < self.confidence_threshold:
+            return {
+                "prediction": prediction,
+                "confidence": confidence,
+                "explanations": explanations,
+                "warning": "Low confidence - recommend additional review"
+            }
+
+        return {
+            "prediction": prediction,
+            "confidence": confidence,
+            "explanations": explanations
+        }
+```
+
+## Algorithmic Fairness
+
+Healthcare ML has profound fairness implications:
+
+- Models trained on biased historical data perpetuate disparities
+- Socioeconomic proxies can sneak into predictions
+- Underrepresented populations may have worse model performance
+
+The cost of unfairness isn't just a bad headline — it's real patients receiving worse care.
+
+## The Path Forward
+
+Despite these challenges, I remain optimistic. The key principles:
+
+1. **Start with the clinical workflow**: Technology should fit the user, not vice versa
+2. **Embrace uncertainty**: Models should know what they don't know
+3. **Design for equity**: Actively measure and mitigate disparities
+4. **Build trust gradually**: Pilot, validate, iterate
+
+The opportunity is enormous. We just need to approach it with the seriousness it deserves.

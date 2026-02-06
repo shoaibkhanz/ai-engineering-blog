@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "name": "healthcare-ml-pipeline",
+      "description": "End-to-end ML pipeline for clinical prediction models with HIPAA-compliant data handling",
+      "tags": ["python", "ray", "kubernetes"],
+      "status": "active",
+      "url": null
+    },
+    {
+      "name": "distributed-training-infra",
+      "description": "Ray-based distributed training framework for large-scale model training on K8s",
+      "tags": ["ray", "k8s", "pytorch"],
+      "status": "active",
+      "url": null
+    },
+    {
+      "name": "clinical-nlp",
+      "description": "NLP models for extracting structured data from clinical notes and discharge summaries",
+      "tags": ["transformers", "spacy", "python"],
+      "status": "wip",
+      "url": null
+    },
+    {
+      "name": "model-registry",
+      "description": "Internal model registry and serving platform with A/B testing support",
+      "tags": ["mlflow", "fastapi", "docker"],
+      "status": "shipped",
+      "url": null
+    },
+    {
+      "name": "convergeml.com",
+      "description": "This site. Built with Next.js, Tailwind, and MDX",
+      "tags": ["next.js", "typescript", "mdx"],
+      "status": "active",
+      "url": "https://github.com/shoaibkhan/convergeml"
+    }
+  ]
+}

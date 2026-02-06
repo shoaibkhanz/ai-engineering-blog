@@ -1,0 +1,99 @@
+---
+title: "Understanding Gradient Descent: A Visual Journey"
+date: "2026-01-29"
+description: "A deep dive into the mathematics and intuition behind gradient descent, the workhorse of modern machine learning."
+tags: ["ml", "tutorial", "mathematics"]
+---
+
+Machine learning is, at its core, an optimization problem. We have a function we want to minimize (or maximize), and we need to find the parameters that achieve this goal. Gradient descent is the algorithm that makes this possible.
+
+## The Intuition
+
+Imagine you're standing on a mountain in complete fog. You can't see the valley below, but you want to reach the lowest point. What do you do? You feel the slope beneath your feet and take a step in the direction that goes downhill. That's gradient descent.
+
+Mathematically, we express this as:
+
+$$
+\theta_{t+1} = \theta_t - \alpha \nabla_\theta J(\theta)
+$$
+
+Where $\theta$ represents our parameters, $\alpha$ is the learning rate (how big our steps are), and $\nabla_\theta J(\theta)$ is the gradient of our loss function.
+
+## Learning Rate: The Step Size
+
+The learning rate $\alpha$ is crucial. Too large, and we might overshoot the minimum, bouncing around chaotically. Too small, and we'll take forever to converge, or get stuck in local minima.
+
+Consider a simple quadratic function:
+
+```python
+import numpy as np
+
+def gradient_descent(f, df, x0, lr=0.01, n_iter=100):
+    """
+    Simple gradient descent implementation.
+
+    Args:
+        f: The function to minimize
+        df: The derivative of f
+        x0: Starting point
+        lr: Learning rate
+        n_iter: Number of iterations
+    """
+    x = x0
+    history = [x]
+
+    for _ in range(n_iter):
+        grad = df(x)
+        x = x - lr * grad
+        history.append(x)
+
+    return x, history
+```
+
+## Variants of Gradient Descent
+
+There are several variants, each with their own trade-offs:
+
+1. **Batch Gradient Descent**: Uses the entire dataset to compute gradients. Stable but slow for large datasets.
+
+2. **Stochastic Gradient Descent (SGD)**: Uses a single sample at a time. Fast but noisy.
+
+3. **Mini-batch Gradient Descent**: The sweet spot. Uses small batches of data, balancing speed and stability.
+
+## The Mathematics of Convergence
+
+For convex functions with Lipschitz continuous gradients, gradient descent converges at a rate of:
+
+$$
+f(x_t) - f(x^*) \leq \frac{L \|x_0 - x^*\|^2}{2t}
+$$
+
+This tells us that the error decreases as $O(1/t)$, which is relatively slow. This is why momentum and adaptive methods like Adam were developed.
+
+## Momentum: Learning from the Past
+
+Momentum adds a fraction of the previous update to the current one:
+
+$$
+v_t = \gamma v_{t-1} + \alpha \nabla_\theta J(\theta)
+$$
+$$
+\theta_{t+1} = \theta_t - v_t
+$$
+
+This helps the algorithm build up speed in consistent directions while dampening oscillations.
+
+## Practical Considerations
+
+When implementing gradient descent in practice:
+
+- **Normalize your features**: This ensures all dimensions have similar scales
+- **Monitor the loss curve**: It should generally decrease
+- **Use learning rate schedules**: Start large, decay over time
+- **Consider adaptive methods**: Adam, RMSprop, etc.
+
+## Conclusion
+
+Gradient descent is beautifully simple yet remarkably powerful. Understanding it deeply gives you intuition for why deep learning works and how to debug it when it doesn't.
+
+The key insight is that we're always following the local slope, trusting that small steps in the right direction will eventually lead us to our destination.
