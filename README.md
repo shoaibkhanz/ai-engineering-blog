@@ -2,7 +2,7 @@
 
 **[shoaibkhanz.github.io/ai-engineering-blog](https://shoaibkhanz.github.io/ai-engineering-blog/)**
 
-Personal site and blog — AI Engineering, Agents & LLMs, Production Infrastructure. Built with a terminal/code-editor aesthetic — the hero section renders as a Pydantic model, section headers use shell commands, and the writing timeline mimics `git log`.
+Engineering blog covering AI systems, LLM agents, and production ML infrastructure. Drawn from a decade of shipping models across fintech, healthcare, and investment management. The site uses a terminal/code-editor aesthetic built in Next.js: hero renders as a Pydantic model, section headers use shell commands, and the writing timeline mimics `git log`.
 
 ## Stack
 

@@ -2,6 +2,19 @@
 
 Guidance for Claude Code when working in this repository.
 
+## Voice & Tone
+
+All copy on this site — README, about page, project descriptions, blog posts — must read like a **confident engineering leader**, not an employee listing duties. Write with authority and ownership:
+
+- **Lead with impact and decisions**, not tasks performed. "Architected the model registry" not "worked on setting up a model registry".
+- **Use strong verbs**: designed, led, architected, shipped, drove, built, scaled — not helped, assisted, worked on, was responsible for.
+- **Own outcomes**: "Cut inference latency 40%" not "contributed to latency improvements".
+- **Be direct and concise**. No hedging ("helped to", "was involved in"), no filler, no passive voice where active is clearer.
+- **Professional, not boastful**. Let the work speak. State what was built and the result, without self-congratulation.
+- **Avoid em dashes (—)**. They signal AI-written text. Use commas, periods, or colons instead.
+
+Apply this standard to all content: project descriptions, about page copy, blog intros, README text, and any new content added to the site.
+
 ## Build & Run
 
 ```bash

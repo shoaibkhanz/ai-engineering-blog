@@ -37,9 +37,9 @@ export default function AboutPage() {
         </div>
 
         <p className="text-text leading-relaxed mb-6">
-          Staff Machine Learning Engineer with nearly a decade of experience
-          building ML systems across fintech, healthcare, and investment
-          management. Currently at{" "}
+          Staff Machine Learning Engineer. Nearly a decade shipping ML systems
+          across fintech, healthcare, and investment management. Currently
+          leading entity resolution at{" "}
           <a
             href="https://www.addepar.com"
             className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
@@ -48,9 +48,9 @@ export default function AboutPage() {
           >
             Addepar
           </a>
-          , working on entity resolution for the alternatives investment world
-          — deep learning re-rankers, retrievers, vector search, and agentic
-          tooling to map the securities landscape.
+          , designing deep learning re-rankers, retrievers, vector search
+          pipelines, and agentic tooling to map the alternatives investment
+          securities landscape.
         </p>
 
         <p className="text-text leading-relaxed mb-6">
@@ -63,19 +63,19 @@ export default function AboutPage() {
           >
             NeatlyHealth.ai
           </a>
-          , an AI health companion that captures and organises patient-provider
-          conversations on GCP.
+          , an AI health companion that captures and organises
+          patient-provider conversations on GCP.
         </p>
 
         <p className="text-text leading-relaxed mb-6">
-          Previously at Best Buy Health, where I worked on the Care Intelligence
-          Platform — building production ML systems with Ray and setting up a
-          model registry using Comet ML.
+          Previously at Best Buy Health, where I architected the Care
+          Intelligence Platform. Distributed ML on Ray, stood up a model
+          registry with Comet ML, and drove the production ML infrastructure.
         </p>
 
         <p className="text-text leading-relaxed mb-10">
-          Before that, at NatWest Group, where I built customer lifetime value
-          models and loan pricing engines using mathematical optimisation, and
+          Before that, at NatWest Group. Designed customer lifetime value
+          models, built loan pricing engines with mathematical optimisation, and
           co-authored a{" "}
           <a
             href="https://aws.amazon.com/blogs/machine-learning/part-4-how-natwest-group-migrated-ml-models-to-amazon-sagemaker-architectures/"
