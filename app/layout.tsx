@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Space_Mono } from "next/font/google";
 import "katex/dist/katex.min.css";
 import "./globals.css";
 import { Header } from "./components/header";
@@ -7,11 +7,11 @@ import { Footer } from "./components/footer";
 import { CursorTrail } from "./components/cursor-trail";
 import { ThemeProvider } from "./components/theme-provider";
 
-const jetbrainsMono = JetBrains_Mono({
+const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "500", "700"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={jetbrainsMono.variable} suppressHydrationWarning>
+    <html lang="en" className={spaceMono.variable} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
