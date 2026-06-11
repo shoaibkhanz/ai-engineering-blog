@@ -163,11 +163,11 @@ body::after {
   z-index: 0;
 }
 
-/* Ensure content is above overlays */
-#__next,
+/* Ensure content is above overlays.
+   NOTE: header/footer are deliberately excluded — this rule is unlayered so
+   it beats Tailwind's @layer utilities, and `position: relative` here would
+   silently override the header's `fixed` positioning. */
 main,
-header,
-footer,
 div[data-nextjs-scroll-focus-boundary] {
   position: relative;
   z-index: 1;
