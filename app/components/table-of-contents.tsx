@@ -10,9 +10,8 @@ interface TableOfContentsProps {
   items: TocItem[];
 }
 
-export function TableOfContents({ items }: TableOfContentsProps) {
+function useActiveHeading(items: TocItem[]): string {
   const [activeSlug, setActiveSlug] = useState("");
-  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const headings = items
@@ -37,6 +36,21 @@ export function TableOfContents({ items }: TableOfContentsProps) {
     return () => observer.disconnect();
   }, [items]);
 
+  return activeSlug;
+}
+
+function scrollToHeading(slug: string) {
+  const el = document.getElementById(slug);
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+}
+
+export function TableOfContents({ items }: TableOfContentsProps) {
+  const activeSlug = useActiveHeading(items);
+  const [isOpen, setIsOpen] = useState(true);
+
   if (items.length === 0) return null;
 
   return (
@@ -44,6 +58,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
       {/* Toggle header */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
         className="w-full flex items-center justify-between px-5 py-3 text-left hover:bg-surface-hover transition-colors"
       >
         <span className="text-xs text-text-secondary">
@@ -80,14 +95,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
                     href={`#${item.slug}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      const el = document.getElementById(item.slug);
-                      if (el) {
-                        const top =
-                          el.getBoundingClientRect().top +
-                          window.scrollY -
-                          80;
-                        window.scrollTo({ top, behavior: "smooth" });
-                      }
+                      scrollToHeading(item.slug);
                     }}
                     className={`text-sm block py-0.5 transition-colors ${
                       activeSlug === item.slug
@@ -103,6 +111,42 @@ export function TableOfContents({ items }: TableOfContentsProps) {
           </motion.div>
         )}
       </AnimatePresence>
+    </nav>
+  );
+}
+
+/** Always-visible TOC for the wide-screen sidebar — no collapse chrome. */
+export function SidebarToc({ items }: TableOfContentsProps) {
+  const activeSlug = useActiveHeading(items);
+
+  if (items.length === 0) return null;
+
+  return (
+    <nav aria-label="Table of contents">
+      <p className="text-xs text-text-secondary mb-3">
+        <span className="text-accent">$</span> cat TOC
+      </p>
+      <ul className="space-y-0.5">
+        {items.map((item) => (
+          <li key={item.slug}>
+            <a
+              href={`#${item.slug}`}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToHeading(item.slug);
+              }}
+              style={{ paddingLeft: `${12 + (item.level - 2) * 14}px` }}
+              className={`text-xs block py-1 leading-relaxed border-l-2 transition-colors ${
+                activeSlug === item.slug
+                  ? "text-accent border-accent"
+                  : "text-text-secondary border-border hover:text-text hover:border-border-bright"
+              }`}
+            >
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }

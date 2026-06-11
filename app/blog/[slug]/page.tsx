@@ -7,7 +7,10 @@ import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import { useMDXComponents } from "@/app/components/mdx-components";
 import { ReadingProgress } from "@/app/components/reading-progress";
-import { TableOfContents } from "@/app/components/table-of-contents";
+import {
+  TableOfContents,
+  SidebarToc,
+} from "@/app/components/table-of-contents";
 import Link from "next/link";
 
 interface Props {
@@ -78,7 +81,10 @@ export default async function BlogPost({ params }: Props) {
   return (
     <>
       <ReadingProgress wordCount={wordCount} />
-      <article className="max-w-3xl md:max-w-4xl mx-auto px-6 pt-24 pb-16">
+      <div className="max-w-6xl mx-auto px-6 pt-24 pb-16 xl:grid xl:grid-cols-[1fr_auto_1fr] xl:gap-10">
+        {/* Left gutter (keeps article centered on xl) */}
+        <div className="hidden xl:block" />
+        <article className="max-w-[72ch] mx-auto min-w-0 xl:mx-0">
         {/* Back link */}
         <Link
           href="/blog"
@@ -113,8 +119,12 @@ export default async function BlogPost({ params }: Props) {
           </div>
         </header>
 
-        {/* Table of Contents */}
-        {toc.length > 0 && <TableOfContents items={toc} />}
+        {/* Table of Contents — inline collapsible below xl, sidebar on xl+ */}
+        {toc.length > 0 && (
+          <div className="xl:hidden">
+            <TableOfContents items={toc} />
+          </div>
+        )}
 
         {/* Content */}
         <div className="prose max-w-none">
@@ -210,7 +220,17 @@ export default async function BlogPost({ params }: Props) {
             </div>
           </section>
         )}
-      </article>
+        </article>
+
+        {/* Sticky sidebar TOC (xl+) */}
+        <aside className="hidden xl:block w-56">
+          {toc.length > 0 && (
+            <div className="sticky top-24">
+              <SidebarToc items={toc} />
+            </div>
+          )}
+        </aside>
+      </div>
     </>
   );
 }

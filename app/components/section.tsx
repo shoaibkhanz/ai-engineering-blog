@@ -18,7 +18,7 @@ export function Section({
 }: SectionProps) {
   return (
     <motion.section
-      className={`py-16 ${className}`}
+      className={`py-12 ${className}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
