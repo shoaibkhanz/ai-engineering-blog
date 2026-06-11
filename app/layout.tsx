@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
 import { CursorTrail } from "./components/cursor-trail";
+import { WarpGrid } from "./components/warp-grid";
 import { ThemeProvider } from "./components/theme-provider";
 
 const spaceMono = Space_Mono({
@@ -55,6 +56,7 @@ export default function RootLayout({
           <a href="#main-content" className="skip-link">
             $ skip --to-content
           </a>
+          <WarpGrid />
           <CursorTrail />
           <Header />
           <main id="main-content" className="flex-1 relative z-1">

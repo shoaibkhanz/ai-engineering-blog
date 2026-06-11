@@ -56,7 +56,8 @@ KaTeX CSS is imported globally in `layout.tsx` — removing this breaks all math
 - **Shared utilities**: `lib/utils.ts` exports `getAccentRgb()` (CSS variable → RGB string). `lib/mdx.ts` exports `slugify()`. Do not duplicate these.
 - **MDX components** (`mdx-components.tsx`): Custom renderers for all elements. Headings get auto-generated `id` attributes via `slugify()` for TOC links.
 - **Theme system**: `theme-provider.tsx` provides `useTheme()` context. Inline `<script>` in `layout.tsx` sets `data-theme` on `<html>` before first paint (no flash). Persists in localStorage, defaults to dark.
-- **Canvas animations**: `particle-grid.tsx` and `cursor-trail.tsx` use requestAnimationFrame + devicePixelRatio. Both watch `data-theme` changes via MutationObserver to adapt accent colors.
+- **Canvas animations**: `particle-grid.tsx`, `cursor-trail.tsx`, and `warp-grid.tsx` use requestAnimationFrame + devicePixelRatio. All watch `data-theme` changes via MutationObserver to adapt accent colors, and all bail out (static frame or hidden) under `prefers-reduced-motion`.
+- **Warp grid background**: `warp-grid.tsx` draws the site-wide grid on a fixed canvas and bends it away from the cursor with an accent glow (replaces the old static `body::after` CSS grid). The rAF loop pauses when the grid settles, so idle cost is zero.
 - **Code blocks**: `code-block.tsx` wraps `<pre>` with copy-to-clipboard button. `globals.css` maps `--shiki-dark`/`--shiki-light` to `color` based on active theme.
 - **Hero**: Pydantic `BaseModel` style code editor window with line numbers, drifting glow orbs, and clickable social fields (type annotations as links with `# ↗` hover hint).
 
@@ -147,7 +148,7 @@ Edit `content/projects.json` or `content/experiments.json`. Projects need `statu
 - **Cursor glow size/opacity**: width/height classes and `radial-gradient` stops in `cursor-trail.tsx`
 - **Hero glow drift**: `animate` keyframe arrays and `transition.duration` on the two glow `motion.div` elements in `hero.tsx`
 - **Noise texture**: `body::before` opacity in `globals.css`
-- **Grid lines**: `body::after` background-size in `globals.css`
+- **Grid lines**: `SPACING`, `WARP_RADIUS`, `WARP_STRENGTH`, and `baseAlpha` in `warp-grid.tsx`
 - **Reading progress**: line height estimate (`25.5px`) and WPM (`230`) in `reading-progress.tsx`
 
 ## Common Mistakes — Do Not Repeat

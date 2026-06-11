@@ -52,14 +52,6 @@
   opacity: 0;
 }
 
-[data-theme="light"] body::after {
-  background-image: linear-gradient(
-      rgba(72, 62, 38, 0.05) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(72, 62, 38, 0.05) 1px, transparent 1px);
-}
-
 [data-theme="light"] .scanlines::before {
   display: none;
 }
@@ -190,20 +182,8 @@ body::before {
   z-index: 0;
 }
 
-/* Subtle grid background */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.02) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
+/* Grid background is drawn by components/warp-grid.tsx (canvas) so it can
+   bend away from the cursor; the old static body::after grid is retired. */
 
 /* Ensure content is above overlays.
    NOTE: header/footer are deliberately excluded — this rule is unlayered so
