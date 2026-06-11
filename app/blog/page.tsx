@@ -4,7 +4,7 @@ import { BlogList } from "./blog-list";
 
 export const metadata = {
   title: "Writing",
-  description: "Technical writing on ML engineering, infrastructure, and healthcare AI.",
+  description: "Technical writing on AI engineering, ML systems, and production infrastructure.",
 };
 
 function BlogSkeleton() {

@@ -4,7 +4,7 @@ import { withBasePath } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Shoaib Khan — Staff ML Engineer with nearly a decade of experience across fintech, healthcare, and investment management.",
+  description: "About Shoaib Khan, Staff AI Engineer with nearly a decade of experience across manufacturing, fintech, healthcare, and investment management.",
 };
 
 const stack = [
@@ -40,45 +40,33 @@ export default function AboutPage() {
         </div>
 
         <p className="text-text leading-relaxed mb-6">
-          Staff Machine Learning Engineer. Nearly a decade shipping ML systems
-          across fintech, healthcare, and investment management. Currently
-          leading the ML efforts within data feeds at{" "}
-          <a
-            href="https://www.addepar.com"
-            className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Addepar
-          </a>
-          , building entity resolution, deep learning re-rankers, vector search
-          pipelines, and agentic tooling for the alternatives investment
-          securities landscape.
+          Staff AI Engineer at aPriori, building AI systems for manufacturing
+          intelligence. Nearly a decade shipping ML and AI systems across
+          manufacturing, fintech, healthcare, and investment management.
         </p>
 
         <p className="text-text leading-relaxed mb-6">
-          Engineering and building the data analytics platform at{" "}
-          <a
-            href="https://neatlyhealth.ai"
-            className="text-accent border-b border-accent/30 hover:border-accent transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            NeatlyHealth.ai
-          </a>
-          , an AI health companion that captures and organises
-          patient-provider conversations on GCP.
+          Previously led ML for data feeds at an investment management
+          platform: entity resolution, deep learning re-rankers, vector search
+          pipelines, and agentic tooling for the alternatives securities
+          landscape.
         </p>
 
         <p className="text-text leading-relaxed mb-6">
-          Previously at Best Buy Health, where I architected the Care
-          Intelligence Platform. Distributed ML on Ray, stood up a model
-          registry with Comet ML, and drove the production ML infrastructure.
+          Also engineered the data analytics platform for an AI health
+          companion that captures and organises patient-provider conversations
+          on GCP.
+        </p>
+
+        <p className="text-text leading-relaxed mb-6">
+          Before that, architected a care intelligence platform at a healthcare
+          technology company. Distributed ML on Ray, stood up a model registry,
+          and drove the production ML infrastructure.
         </p>
 
         <p className="text-text leading-relaxed mb-10">
-          Before that, at NatWest Group. Designed customer lifetime value
-          models, built loan pricing engines with mathematical optimisation, and
+          Earlier, at a major UK bank, designed customer lifetime value models,
+          built loan pricing engines with mathematical optimisation, and
           co-authored a{" "}
           <a
             href="https://aws.amazon.com/blogs/machine-learning/part-4-how-natwest-group-migrated-ml-models-to-amazon-sagemaker-architectures/"
@@ -126,17 +114,17 @@ export default function AboutPage() {
 
         <p className="text-text leading-relaxed mb-4">
           The common thread across everything I&apos;ve built is taking ML from
-          prototype to production — systems that are reliable, observable, and
+          prototype to production: systems that are reliable, observable, and
           maintainable. Whether it&apos;s matching securities across messy
-          datasets or pricing loan portfolios, the hard part is rarely the model
-          itself.
+          datasets, costing manufactured parts, or pricing loan portfolios, the
+          hard part is rarely the model itself.
         </p>
 
         <p className="text-text leading-relaxed mb-10">
-          In regulated industries — finance, healthcare, banking — &quot;move
-          fast and break things&quot; doesn&apos;t apply. Models need to be
-          explainable, auditable, and integrated into existing workflows without
-          adding friction.
+          In regulated and precision-critical industries like finance,
+          healthcare, and manufacturing, &quot;move fast and break things&quot;
+          doesn&apos;t apply. Models need to be explainable, auditable, and
+          integrated into existing workflows without adding friction.
         </p>
 
         {/* Contact section */}

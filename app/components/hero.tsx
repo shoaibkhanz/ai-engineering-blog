@@ -69,7 +69,7 @@ export function Hero() {
 
             {/* Tagline */}
             <p className="text-text-secondary text-sm md:text-base mb-6 leading-relaxed max-w-md">
-              ML engineer building AI systems, agents, and the production infrastructure behind them.
+              Staff AI engineer building agents, ML systems, and the production infrastructure behind them.
             </p>
 
             {/* Social links as terminal commands */}
@@ -129,7 +129,7 @@ export function Hero() {
                   <span className="text-text-secondary">: </span>
                   <span className="text-cyan">str</span>
                   <span className="text-text-secondary"> = </span>
-                  <span className="text-accent/80">&quot;ML Engineer&quot;</span>
+                  <span className="text-accent/80">&quot;Staff AI Engineer&quot;</span>
                 </div>
                 <div className="pl-4">
                   <span className="text-text">focus</span>

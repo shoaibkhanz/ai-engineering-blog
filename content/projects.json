@@ -1,11 +1,11 @@
 {
   "projects": [
     {
-      "name": "data-analytics — NeatlyHealth.ai",
+      "name": "health-data-analytics",
       "description": "Building the data analytics platform for an AI health companion that captures and organises patient-provider conversations, built on GCP",
       "tags": ["gcp", "python", "analytics"],
       "status": "active",
-      "url": "https://neatlyhealth.ai"
+      "url": null
     },
     {
       "name": "entity-resolution — securities",

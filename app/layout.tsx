@@ -16,14 +16,14 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Shoaib Khan — ML Engineer",
+    default: "Shoaib Khan — Staff AI Engineer",
     template: "%s | Shoaib Khan",
   },
   description:
-    "ML engineer building healthcare AI systems and distributed infrastructure.",
+    "Staff AI engineer building agents, ML systems, and the production infrastructure behind them.",
   metadataBase: new URL("https://shoaibkhanz.github.io/ai-engineering-blog"),
   openGraph: {
-    siteName: "Shoaib Khan — ML Engineer",
+    siteName: "Shoaib Khan — Staff AI Engineer",
     type: "website",
     locale: "en_US",
   },
