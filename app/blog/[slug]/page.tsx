@@ -5,7 +5,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
-import { useMDXComponents } from "@/app/components/mdx-components";
+import { getMDXComponents } from "@/app/components/mdx-components";
 import { ReadingProgress } from "@/app/components/reading-progress";
 import {
   TableOfContents,
@@ -59,7 +59,7 @@ export default async function BlogPost({ params }: Props) {
   }
 
   const { meta, content } = post;
-  const components = useMDXComponents({});
+  const components = getMDXComponents({});
   const wordCount = content.split(/\s+/).filter(Boolean).length;
   const toc = extractToc(content);
 

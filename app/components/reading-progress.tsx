@@ -8,7 +8,6 @@ interface ReadingProgressProps {
 
 export function ReadingProgress({ wordCount }: ReadingProgressProps) {
   const [currentLine, setCurrentLine] = useState(1);
-  const [totalLines, setTotalLines] = useState(1);
   const [percent, setPercent] = useState(0);
   const articleRef = useRef<HTMLElement | null>(null);
 
@@ -28,7 +27,6 @@ export function ReadingProgress({ wordCount }: ReadingProgressProps) {
       // Estimate lines: ~24px per line at 15px font + 1.7 line-height
       const lineHeight = 25.5;
       const total = Math.max(1, Math.round(articleHeight / lineHeight));
-      setTotalLines(total);
 
       // Current scroll position within article
       const scrollInArticle = Math.max(0, window.scrollY - articleTop);

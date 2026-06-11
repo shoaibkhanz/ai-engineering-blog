@@ -15,7 +15,7 @@ function getTextContent(children: ReactNode): string {
   return "";
 }
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export function getMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: (props) => (
       <h1
@@ -100,3 +100,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
   };
 }
+
+// Next.js MDX integration expects this hook-style name; it simply delegates.
+export const useMDXComponents = getMDXComponents;
