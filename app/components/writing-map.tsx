@@ -113,7 +113,7 @@ export function WritingMap({ posts }: WritingMapProps) {
                           <Link
                             key={post.slug}
                             href={`/blog/${post.slug}`}
-                            className="group flex items-center gap-3 py-1.5 -ml-[25px]"
+                            className="group flex items-center gap-4 py-1.5 -ml-[29px]"
                           >
                             {/* Node dot */}
                             <div className="relative z-10 w-[9px] h-[9px] rounded-full bg-surface border border-border group-hover:border-accent group-hover:bg-accent/20 transition-all shrink-0">
@@ -153,11 +153,14 @@ export function WritingMap({ posts }: WritingMapProps) {
         })}
       </div>
 
-      {/* Terminal prompt at end */}
+      {/* Terminal prompt at end — next post being drafted */}
       <div className="flex items-center gap-3 mt-6 ml-0">
-        <div className="relative z-10 w-[15px] h-[15px] rounded-full border border-border bg-bg" />
+        <div className="relative z-10 w-[15px] h-[15px] rounded-full border border-accent/30 bg-bg flex items-center justify-center">
+          <div className="w-[7px] h-[7px] rounded-full bg-accent/20" />
+        </div>
         <span className="text-xs text-text-secondary">
-          <span className="text-accent">$</span> _
+          <span className="text-accent">$</span> nvim drafts/next-post.mdx
+          <span className="cursor-blink text-accent ml-1.5">▍</span>
         </span>
       </div>
     </div>
