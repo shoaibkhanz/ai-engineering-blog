@@ -119,6 +119,33 @@ export function ParticleGrid() {
       mouseRef.current = { x: -1000, y: -1000 };
     }
 
+    // Reduced motion: draw the grid once, skip the animation loop entirely
+    function drawStatic() {
+      if (!canvas || !ctx) return;
+      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+      for (const dot of dotsRef.current) {
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, dotRadius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${accentRef.current}, 0.15)`;
+        ctx.fill();
+      }
+    }
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (reduceMotion.matches) {
+      const staticResize = () => {
+        resize();
+        drawStatic();
+      };
+      staticResize();
+      window.addEventListener("resize", staticResize);
+      return () => {
+        window.removeEventListener("resize", staticResize);
+        observer.disconnect();
+      };
+    }
+
     resize();
     animate();
 

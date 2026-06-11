@@ -1,21 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { getAccentRgb } from "@/lib/utils";
 
 export function CursorTrail() {
   const glowRef = useRef<HTMLDivElement>(null);
-  const [rgb, setRgb] = useState("0, 255, 159");
 
   useEffect(() => {
     const glow = glowRef.current;
     if (!glow) return;
 
-    setRgb(getAccentRgb());
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches) {
+      glow.style.display = "none";
+      return;
+    }
 
-    const observer = new MutationObserver(() => {
-      setRgb(getAccentRgb());
-    });
+    function applyAccent() {
+      if (!glow) return;
+      const rgb = getAccentRgb();
+      glow.style.background = `radial-gradient(circle, rgba(${rgb},0.12) 0%, rgba(${rgb},0.04) 40%, transparent 70%)`;
+    }
+
+    applyAccent();
+
+    const observer = new MutationObserver(applyAccent);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ["data-theme"],
@@ -25,6 +34,7 @@ export function CursorTrail() {
     let y = 0;
     let targetX = 0;
     let targetY = 0;
+    let rafId = 0;
 
     function handleMouseMove(e: MouseEvent) {
       targetX = e.clientX;
@@ -38,7 +48,7 @@ export function CursorTrail() {
       if (glow) {
         glow.style.transform = `translate(${x - 200}px, ${y - 200}px)`;
       }
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     }
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -46,6 +56,7 @@ export function CursorTrail() {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(rafId);
       observer.disconnect();
     };
   }, []);
@@ -54,10 +65,7 @@ export function CursorTrail() {
     <div
       ref={glowRef}
       className="fixed w-[400px] h-[400px] rounded-full pointer-events-none z-[100]"
-      style={{
-        background: `radial-gradient(circle, rgba(${rgb},0.12) 0%, rgba(${rgb},0.04) 40%, transparent 70%)`,
-        willChange: "transform",
-      }}
+      style={{ willChange: "transform" }}
     />
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ParticleGrid } from "./particle-grid";
 
 const socials = [
@@ -10,6 +10,8 @@ const socials = [
 ];
 
 export function Hero() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section className="relative overflow-hidden">
       <ParticleGrid />
@@ -19,10 +21,14 @@ export function Hero() {
         {/* Ambient glow — slow organic drift */}
         <motion.div
           className="absolute pointer-events-none w-[300px] h-[200px] top-[-50px] left-[-60px]"
-          animate={{
-            x: [0, 80, 200, 260, 180, 40, 0],
-            y: [0, 30, -10, 60, 100, 50, 0],
-          }}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  x: [0, 80, 200, 260, 180, 40, 0],
+                  y: [0, 30, -10, 60, 100, 50, 0],
+                }
+          }
           transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
           style={{
             background: "radial-gradient(ellipse at center, var(--color-accent) 0%, transparent 70%)",
@@ -32,10 +38,14 @@ export function Hero() {
         />
         <motion.div
           className="absolute pointer-events-none w-[260px] h-[180px] bottom-[-40px] right-[-50px]"
-          animate={{
-            x: [0, -60, -180, -240, -140, -30, 0],
-            y: [0, -25, 15, -50, -90, -35, 0],
-          }}
+          animate={
+            reduceMotion
+              ? undefined
+              : {
+                  x: [0, -60, -180, -240, -140, -30, 0],
+                  y: [0, -25, 15, -50, -90, -35, 0],
+                }
+          }
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           style={{
             background: "radial-gradient(ellipse at center, var(--color-accent) 0%, transparent 70%)",
