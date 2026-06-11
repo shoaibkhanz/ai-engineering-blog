@@ -21,22 +21,31 @@
     Menlo, Consolas, "Liberation Mono", monospace;
 }
 
-/* Light theme overrides */
+/* Light theme overrides — warm "paper terminal", recalibrated per-theme
+   (not an inversion of dark): lower-luminance bg to cut glare, off-white
+   surfaces instead of pure white, accent darkened to hold ≥4.5:1 contrast */
 [data-theme="light"] {
-  --color-bg: #f4f4f5;
-  --color-surface: #ffffff;
-  --color-surface-hover: #ebebeb;
-  --color-border: #d4d4d8;
-  --color-border-bright: #a1a1aa;
-  --color-text: #1a1a1e;
-  --color-text-secondary: #52525b;
-  --color-text-heading: #09090b;
-  --color-accent: #00875a;
-  --color-accent-dim: #006644;
-  --color-cyan: #0e7490;
-  --color-red: #dc2626;
-  --color-yellow: #ca8a04;
-  --color-green: #16a34a;
+  --color-bg: #ece9e2;
+  --color-surface: #f7f5ef;
+  --color-surface-hover: #e5e1d6;
+  --color-border: #d6d1c3;
+  --color-border-bright: #a8a18d;
+  --color-text: #34312a;
+  --color-text-secondary: #686253;
+  --color-text-heading: #1b1a15;
+  --color-accent: #006b46;
+  --color-accent-dim: #005436;
+  --color-cyan: #0a657a;
+  --color-red: #b93a30;
+  --color-yellow: #7a5e00;
+  --color-green: #266e1e;
+}
+
+/* antialiased smoothing thins glyphs: right for light-on-dark, wrong for
+   dark-on-light — restore default subpixel rendering in light theme */
+[data-theme="light"] body {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
 [data-theme="light"] body::before {
@@ -45,10 +54,10 @@
 
 [data-theme="light"] body::after {
   background-image: linear-gradient(
-      rgba(0, 0, 0, 0.04) 1px,
+      rgba(72, 62, 38, 0.05) 1px,
       transparent 1px
     ),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(72, 62, 38, 0.05) 1px, transparent 1px);
 }
 
 [data-theme="light"] .scanlines::before {
@@ -56,7 +65,7 @@
 }
 
 [data-theme="light"] ::selection {
-  background: rgba(0, 135, 90, 0.15);
+  background: rgba(0, 107, 70, 0.18);
 }
 
 [data-theme="light"] ::-webkit-scrollbar-track {
@@ -71,16 +80,16 @@
   background: var(--color-border-bright);
 }
 
-/* Light theme: code blocks get a tinted background for contrast */
+/* Light theme: code blocks get a warm tinted background for contrast */
 [data-theme="light"] pre[data-theme] {
-  background: #f0f0f2 !important;
-  border-color: #d4d4d8;
+  background: #f2efe7 !important;
+  border-color: #d6d1c3;
 }
 
 [data-theme="light"] code:not(pre code) {
-  background: #f0f0f2;
-  border-color: #d4d4d8;
-  color: #047857;
+  background: #f2efe7;
+  border-color: #d6d1c3;
+  color: #006b46;
 }
 
 /* Glow RGB values for box-shadow (can't use hex in rgba) */
@@ -89,7 +98,7 @@
 }
 
 [data-theme="light"] {
-  --glow-rgb: 0, 135, 90;
+  --glow-rgb: 0, 107, 70;
 }
 
 /* Base styles */
@@ -370,7 +379,7 @@ code:not(pre code) {
 
 .prose a {
   text-decoration: none;
-  border-bottom: 1px solid rgba(0, 255, 159, 0.3);
+  border-bottom: 1px solid rgba(var(--glow-rgb), 0.35);
   transition: border-color 0.2s;
 }
 

@@ -111,14 +111,14 @@ Two themes controlled by `data-theme` attribute on `<html>`:
 
 | Token | Dark (default) | Light |
 |-------|---------------|-------|
-| `--color-bg` | `#0a0a0a` | `#f4f4f5` |
-| `--color-surface` | `#141414` | `#ffffff` |
-| `--color-text` | `#e0e0e0` | `#27272a` |
-| `--color-text-heading` | `#ffffff` | `#09090b` |
-| `--color-accent` | `#00ff9f` | `#00875a` |
-| `--color-cyan` | `#00d4ff` | `#0e7490` |
+| `--color-bg` | `#0a0a0a` | `#ece9e2` |
+| `--color-surface` | `#141414` | `#f7f5ef` |
+| `--color-text` | `#e0e0e0` | `#34312a` |
+| `--color-text-heading` | `#ffffff` | `#1b1a15` |
+| `--color-accent` | `#00ff9f` | `#006b46` |
+| `--color-cyan` | `#00d4ff` | `#0a657a` |
 
-Dark mode has noise texture + grid overlay. Light mode disables noise and uses dark grid lines. Code blocks use `#f0f0f2` background in light mode.
+Dark mode has noise texture + grid overlay. Light mode is a warm "paper terminal": recalibrated per-theme (never the dark accents at reduced opacity), no pure-white surfaces, all text tokens hold ≥4.5:1 WCAG contrast, and font smoothing reverts to subpixel (`auto`) because `antialiased` thins dark-on-light glyphs. Code blocks use `#f2efe7` background and the `github-light-high-contrast` shiki theme in light mode.
 
 `--glow-rgb` (defined in `:root` and `[data-theme="light"]`) provides RGB values for `rgba()` box-shadows.
 

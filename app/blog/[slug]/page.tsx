@@ -118,7 +118,7 @@ export default async function BlogPost({ params }: Props) {
                     {
                       theme: {
                         dark: "github-dark",
-                        light: "github-light",
+                        light: "github-light-high-contrast",
                       },
                       keepBackground: false,
                     },
