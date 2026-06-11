@@ -1,6 +1,7 @@
 import type { MDXComponents } from "mdx/types";
 import type { ReactNode } from "react";
 import { slugify } from "@/lib/mdx";
+import { withBasePath } from "@/lib/site";
 import { Callout } from "./callout";
 import { CodeBlock } from "./code-block";
 
@@ -88,9 +89,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <img
         {...props}
         src={
-          props.src?.startsWith("/")
-            ? `/ai-engineering-blog${props.src}`
-            : props.src
+          typeof props.src === "string" ? withBasePath(props.src) : props.src
         }
         alt={props.alt || ""}
       />

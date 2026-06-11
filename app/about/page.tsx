@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { TerminalWindow } from "../components/terminal-window";
+import { withBasePath } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -25,8 +26,10 @@ export default function AboutPage() {
 
         {/* About header with photo */}
         <div className="flex items-center gap-5 mb-6 border-b border-border pb-5">
+          {/* next/image is unavailable with `output: export` without a custom loader */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/ai-engineering-blog/images/shoaib.jpg"
+            src={withBasePath("/images/shoaib.jpg")}
             alt="Shoaib Khan"
             className="w-20 h-20 rounded-full border-2 border-accent/30 shrink-0"
           />

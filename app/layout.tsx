@@ -21,7 +21,20 @@ export const metadata: Metadata = {
   },
   description:
     "ML engineer building healthcare AI systems and distributed infrastructure.",
-  metadataBase: new URL("https://shoaibkhanz.github.io"),
+  metadataBase: new URL("https://shoaibkhanz.github.io/ai-engineering-blog"),
+  openGraph: {
+    siteName: "Shoaib Khan — ML Engineer",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+  },
+  alternates: {
+    types: {
+      "application/rss+xml": "/ai-engineering-blog/feed.xml",
+    },
+  },
 };
 
 // Inline script to set theme before first paint (prevents flash)

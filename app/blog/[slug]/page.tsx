@@ -26,6 +26,19 @@ export async function generateMetadata({ params }: Props) {
     return {
       title: meta.title,
       description: meta.description,
+      openGraph: {
+        title: meta.title,
+        description: meta.description,
+        type: "article",
+        publishedTime: meta.date,
+        url: `/blog/${slug}/`,
+        tags: meta.tags,
+      },
+      twitter: {
+        card: "summary",
+        title: meta.title,
+        description: meta.description,
+      },
     };
   } catch {
     return { title: "Post Not Found" };
