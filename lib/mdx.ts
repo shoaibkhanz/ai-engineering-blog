@@ -78,11 +78,14 @@ export function slugify(text: string): string {
 }
 
 export function extractToc(content: string): TocItem[] {
+  // Strip fenced code blocks first — `## comment` lines inside them would
+  // otherwise produce phantom TOC entries pointing at nonexistent headings
+  const withoutCode = content.replace(/^(```|~~~)[\s\S]*?^\1.*$/gm, "");
   const headingRegex = /^(#{2,3})\s+(.+)$/gm;
   const items: TocItem[] = [];
   let match;
 
-  while ((match = headingRegex.exec(content)) !== null) {
+  while ((match = headingRegex.exec(withoutCode)) !== null) {
     const level = match[1].length;
     const text = match[2].trim();
     items.push({ text, slug: slugify(text), level });

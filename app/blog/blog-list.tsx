@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { PostCard } from "../components/post-card";
 import type { PostMeta } from "@/lib/mdx";
 
@@ -12,14 +11,19 @@ interface BlogListProps {
 
 export function BlogList({ posts, tags }: BlogListProps) {
   const searchParams = useSearchParams();
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
-  useEffect(() => {
-    const tagParam = searchParams.get("tag");
-    if (tagParam && tags.includes(tagParam)) {
-      setSelectedTag(tagParam);
-    }
-  }, [searchParams, tags]);
+  // The URL is the source of truth: filtered views are shareable, Back works
+  const tagParam = searchParams.get("tag");
+  const selectedTag = tagParam && tags.includes(tagParam) ? tagParam : null;
+
+  function selectTag(tag: string | null) {
+    router.replace(
+      tag ? `${pathname}?tag=${encodeURIComponent(tag)}` : pathname,
+      { scroll: false }
+    );
+  }
 
   const filteredPosts = selectedTag
     ? posts.filter((p) => p.tags.includes(selectedTag))
@@ -30,7 +34,7 @@ export function BlogList({ posts, tags }: BlogListProps) {
       {/* Tag filters */}
       <div className="flex flex-wrap gap-2 mb-8">
         <button
-          onClick={() => setSelectedTag(null)}
+          onClick={() => selectTag(null)}
           className={`text-xs px-2.5 py-1 rounded border transition-colors ${
             !selectedTag
               ? "border-accent text-accent bg-accent/10"
@@ -42,7 +46,7 @@ export function BlogList({ posts, tags }: BlogListProps) {
         {tags.map((tag) => (
           <button
             key={tag}
-            onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
+            onClick={() => selectTag(tag === selectedTag ? null : tag)}
             className={`text-xs px-2.5 py-1 rounded border transition-colors ${
               tag === selectedTag
                 ? "border-accent text-accent bg-accent/10"
