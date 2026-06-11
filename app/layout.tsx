@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     types: {
-      "application/rss+xml": "/ai-engineering-blog/feed.xml",
+      "application/rss+xml": "https://shoaibkhanz.github.io/ai-engineering-blog/feed.xml",
     },
   },
 };

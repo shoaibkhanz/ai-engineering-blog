@@ -1,6 +1,8 @@
-export const BASE_PATH = "/ai-engineering-blog";
+// Applied in production only, matching basePath in next.config.ts
+export const BASE_PATH =
+  process.env.NODE_ENV === "production" ? "/ai-engineering-blog" : "";
 
-export const SITE_URL = `https://shoaibkhanz.github.io${BASE_PATH}`;
+export const SITE_URL = "https://shoaibkhanz.github.io/ai-engineering-blog";
 
 export const SITE_NAME = "Shoaib Khan — Staff AI Engineer";
 
